@@ -11,7 +11,7 @@ const interface = {
           // "--incognito",
         ],
         headless: false,
-        // slowMo: 250,
+        slowMo: 100,
       });
       this.page = await this.browser.newPage();
       await this.page.setViewport({ width: 1279, height: 768 });
@@ -64,6 +64,51 @@ const interface = {
         },
         attribute
       );
+    } catch (error) {
+      console.log(error);
+    }
+  },
+
+  /**
+   * Runs querySelector on whatever selector is passed in.
+   * Selector should be an input field
+   * Then pass value into input field
+   * @param {string} selector
+   * @param {string} input
+   * @return void
+   */
+  async querySelectorInputAndType(selector, input) {
+    try {
+      return await this.page.type(selector, input);
+    } catch (error) {
+      console.log(error);
+    }
+  },
+
+  /**
+   * Runs querySelector on whatever selector is passed in.
+   * Selector should be an button
+   * Clicks button
+   * @param {string} selector
+   * @return void
+   */
+  async querySelectorButtonAndClick(selector) {
+    try {
+      return await this.page.click(selector);
+    } catch (error) {
+      console.log(error);
+    }
+  },
+
+  /**
+   * Simple wrapper for Puppeteer evaulate function
+   * Visit https://pptr.dev/#?product=Puppeteer&version=v10.1.0&show=api-pageevaluatepagefunction-args for more info
+   * @param {string} data
+   * @return void
+   */
+  async evaluatePage(data) {
+    try {
+      return await this.page.evaluate(data);
     } catch (error) {
       console.log(error);
     }
